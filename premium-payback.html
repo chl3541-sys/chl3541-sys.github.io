@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>권리금 회수기간 계산기 | 점포 인수 투자금 계산</title>
+  <meta name="description" content="권리금, 보증금, 초기비용과 월매출·운영비를 입력해 예상 월 영업이익과 투자금 회수기간을 계산해 보세요. 매출 감소 시나리오도 함께 확인할 수 있습니다.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://chl3541-sys.github.io/premium-payback.html">
+  <meta property="og:title" content="권리금 회수기간 계산기">
+  <meta property="og:description" content="점포 인수 전 권리금과 초기 투자금의 예상 회수기간을 직접 계산해 보세요.">
+  <meta property="og:url" content="https://chl3541-sys.github.io/premium-payback.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta name="theme-color" content="#f5f7fb">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-65RF2M8Q6J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-65RF2M8Q6J');
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"권리금 회수기간 계산기",
+    "url":"https://chl3541-sys.github.io/premium-payback.html",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"Any",
+    "description":"점포 인수 시 권리금과 초기 투자금의 예상 회수기간을 계산하는 무료 웹 계산기"
+  }
+  </script>
+
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;background:#f5f7fb;color:#14213d;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;line-height:1.65}
+    .wrap{max-width:980px;margin:0 auto;padding:54px 24px 80px}
+    h1{font-size:40px;line-height:1.2;margin:0 0 20px}
+    h2{font-size:28px;line-height:1.3;margin:0 0 24px}
+    h3{font-size:20px;margin:0 0 8px}
+    p{color:#60708a}
+    .lead{font-size:20px;margin-bottom:28px}
+    .card{background:#fff;border-radius:24px;padding:30px;margin:22px 0;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    label{display:block;font-weight:750;margin-bottom:7px}
+    input{width:100%;border:1px solid #cbd5e1;border-radius:14px;padding:15px 16px;font-size:19px;color:#111827;background:#fff}
+    input:focus{outline:2px solid #bfdbfe;border-color:#60a5fa}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+    button,.linkbtn{border:0;border-radius:13px;padding:14px 22px;font-size:18px;color:#fff;background:#1267e8;cursor:pointer;text-decoration:none;display:inline-block}
+    .secondary{background:#64748b}
+    .result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .metric{background:#f8fafc;border:1px solid #e2e8f0;border-radius:17px;padding:20px}
+    .metric small{display:block;color:#64748b;margin-bottom:6px}
+    .metric strong{font-size:23px;display:block}
+    .good{color:#047857}.warn{color:#b45309}.bad{color:#b91c1c}
+    table{width:100%;border-collapse:collapse;margin-top:14px}
+    th,td{text-align:left;border-bottom:1px solid #e2e8f0;padding:13px 8px}
+    th{color:#475569}
+    .note{font-size:14px;color:#64748b}
+    .nav{margin-bottom:25px}
+    .nav a{color:#1267e8;text-decoration:none;font-weight:700}
+    ul{color:#475569;padding-left:22px}
+    footer{margin-top:34px;color:#94a3b8;font-size:13px}
+    @media(max-width:700px){
+      .wrap{padding:32px 16px 60px}
+      h1{font-size:31px}
+      h2{font-size:24px}
+      .lead{font-size:17px}
+      .grid,.result-grid{grid-template-columns:1fr}
+      .card{padding:22px}
+    }
+    @media print{
+      .actions,.nav{display:none}
+      body{background:#fff}
+      .wrap{max-width:none;padding:0}
+      .card{box-shadow:none;border:1px solid #ddd}
+    }
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <div class="nav"><a href="./">← 무인매장 수익 계산기로 돌아가기</a></div>
+  <h1>권리금 회수기간 계산기</h1>
+  <p class="lead">점포 인수를 검토하고 있다면 권리금만 보지 말고 실제 월 영업이익을 기준으로 투자금을 몇 개월 만에 회수할 수 있는지 계산해 보세요.</p>
+
+  <section class="card">
+    <h2>점포 인수 조건 입력</h2>
+    <div class="grid">
+      <div><label for="sales">월매출 (원)</label><input id="sales" type="number" min="0" value="15000000"></div>
+      <div><label for="cogs">상품·재료 원가율 (%)</label><input id="cogs" type="number" min="0" max="100" step="0.1" value="40"></div>
+      <div><label for="rent">월세·관리비 (원)</label><input id="rent" type="number" min="0" value="1800000"></div>
+      <div><label for="labor">월 인건비 (원)</label><input id="labor" type="number" min="0" value="2500000"></div>
+      <div><label for="fee">결제 수수료율 (%)</label><input id="fee" type="number" min="0" max="100" step="0.1" value="2"></div>
+      <div><label for="other">기타 월 운영비 (원)</label><input id="other" type="number" min="0" value="700000"></div>
+      <div><label for="deposit">보증금 (원)</label><input id="deposit" type="number" min="0" value="30000000"></div>
+      <div><label for="premium">권리금 (원)</label><input id="premium" type="number" min="0" value="30000000"></div>
+      <div><label for="initial">시설·재고·기타 초기비용 (원)</label><input id="initial" type="number" min="0" value="5000000"></div>
+      <div><label for="days">월 영업일수 (일)</label><input id="days" type="number" min="1" max="31" value="30"></div>
+    </div>
+    <div class="actions">
+      <button type="button" onclick="calc(true)">회수기간 계산하기</button>
+      <button class="secondary" type="button" onclick="trackPrint();window.print()">인쇄 / PDF 저장</button>
+    </div>
+  </section>
+
+  <section class="card" id="results" aria-live="polite">
+    <h2>계산 결과</h2>
+    <div class="result-grid">
+      <div class="metric"><small>예상 월 영업이익</small><strong id="profit">-</strong></div>
+      <div class="metric"><small>초기 투입금</small><strong id="investment">-</strong></div>
+      <div class="metric"><small>예상 회수기간</small><strong id="payback">-</strong></div>
+      <div class="metric"><small>월 손익분기 매출</small><strong id="breakEven">-</strong></div>
+      <div class="metric"><small>일평균 필요 매출</small><strong id="daily">-</strong></div>
+      <div class="metric"><small>연 환산 영업이익</small><strong id="annual">-</strong></div>
+    </div>
+    <p class="note">보증금은 실제로 반환 가능한 자산일 수 있으나 본 계산기는 점포 인수 시 필요한 전체 자금 규모를 보기 위해 초기 투입금에 포함합니다. 세금, 대출이자, 감가상각, 부가세 및 예상하지 못한 비용은 별도로 검토해야 합니다.</p>
+  </section>
+
+  <section class="card">
+    <h2>매출 감소 시 회수기간</h2>
+    <table>
+      <thead><tr><th>상황</th><th>예상 월 영업이익</th><th>회수기간</th></tr></thead>
+      <tbody id="scenario"></tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>권리금 회수기간은 어떻게 계산하나요?</h2>
+    <p>이 계산기는 월매출에서 상품 또는 재료 원가, 결제 수수료, 월세와 관리비, 인건비, 기타 운영비를 차감해 예상 월 영업이익을 계산합니다. 이후 보증금, 권리금, 시설·재고 등 초기비용을 합한 금액을 월 영업이익으로 나누어 예상 회수기간을 보여줍니다.</p>
+    <p>예를 들어 초기 투입금이 6,500만원이고 예상 월 영업이익이 500만원이라면 단순 회수기간은 약 13개월입니다. 하지만 실제 매출이 매도인의 설명보다 낮아질 가능성도 있기 때문에 매출 10%, 20%, 30% 감소 상황을 함께 확인하는 것이 좋습니다.</p>
+  </section>
+
+  <section class="card">
+    <h2>점포 인수 전에 확인할 자료</h2>
+    <ul>
+      <li>최근 6~12개월의 POS 또는 카드 매출 자료</li>
+      <li>상품 및 재료 매입 내역과 실제 원가율</li>
+      <li>임대차계약서와 월세, 관리비, 계약기간</li>
+      <li>직원 급여와 실제 근무시간</li>
+      <li>전기, 수도, 통신, 배달·플랫폼 등 반복 비용</li>
+      <li>시설과 장비의 소유권 및 수리·교체 필요 여부</li>
+      <li>권리금에 포함되는 시설, 재고, 영업권의 범위</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>자주 묻는 질문</h2>
+    <h3>권리금만 월 순이익으로 나누면 되나요?</h3>
+    <p>권리금만의 회수기간을 볼 수도 있지만 실제 인수 결정에서는 보증금과 추가 시설비, 재고비 등 처음 필요한 자금도 함께 확인하는 편이 안전합니다.</p>
+    <h3>회수기간이 짧으면 좋은 매장인가요?</h3>
+    <p>회수기간은 하나의 판단 지표입니다. 매출 자료의 신뢰성, 임대차 조건, 상권 변화, 경쟁점, 장비 상태와 향후 비용도 함께 검토해야 합니다.</p>
+    <h3>계산 결과가 실제 순수익과 같나요?</h3>
+    <p>아닙니다. 입력한 값에 따른 단순 추정치입니다. 세금, 대출이자, 감가상각, 부가세 처리와 예상하지 못한 비용에 따라 실제 결과는 달라질 수 있습니다.</p>
+  </section>
+
+  <footer>본 계산 결과는 참고용이며 투자 또는 점포 인수의 수익을 보장하지 않습니다.</footer>
+</main>
+
+<script>
+  const ids = ['sales','cogs','rent','labor','fee','other','deposit','premium','initial','days'];
+  const won = n => Math.round(n).toLocaleString('ko-KR') + '원';
+  const num = id => Math.max(0, Number(document.getElementById(id).value) || 0);
+
+  function model(multiplier=1){
+    const sales = num('sales') * multiplier;
+    const variableRate = (num('cogs') + num('fee')) / 100;
+    const fixed = num('rent') + num('labor') + num('other');
+    const profit = sales * (1-variableRate) - fixed;
+    const breakEven = variableRate < 1 ? fixed / (1-variableRate) : Infinity;
+    return {sales, profit, breakEven};
+  }
+
+  function paybackText(investment, profit){
+    if(profit <= 0) return '회수 불가';
+    const months = investment / profit;
+    if(months < 12) return months.toFixed(1) + '개월';
+    return months.toFixed(1) + '개월 (' + (months/12).toFixed(1) + '년)';
+  }
+
+  function calc(trackUsage=false){
+    const base = model(1);
+    const investment = num('deposit') + num('premium') + num('initial');
+    const days = Math.max(1,num('days'));
+
+    document.getElementById('profit').textContent = won(base.profit);
+    document.getElementById('profit').className = base.profit > 0 ? 'good' : 'bad';
+    document.getElementById('investment').textContent = won(investment);
+    document.getElementById('payback').textContent = paybackText(investment, base.profit);
+    document.getElementById('payback').className = base.profit > 0 ? 'good' : 'bad';
+    document.getElementById('breakEven').textContent = isFinite(base.breakEven) ? won(base.breakEven) : '계산 불가';
+    document.getElementById('daily').textContent = isFinite(base.breakEven) ? won(base.breakEven/days) : '계산 불가';
+    document.getElementById('annual').textContent = won(base.profit*12);
+
+    const scenarios = [
+      ['현재 매출',1],
+      ['매출 10% 감소',0.9],
+      ['매출 20% 감소',0.8],
+      ['매출 30% 감소',0.7]
+    ];
+    document.getElementById('scenario').innerHTML = scenarios.map(([name,m])=>{
+      const x=model(m);
+      return `<tr><td>${name}</td><td>${won(x.profit)}</td><td>${paybackText(investment,x.profit)}</td></tr>`;
+    }).join('');
+
+    if(trackUsage && typeof window.gtag === 'function'){
+      gtag('event','calculate_payback',{
+        event_category:'calculator',
+        event_label:'premium_payback_calculation',
+        value:1
+      });
+    }
+  }
+
+  function trackPrint(){
+    if(typeof window.gtag === 'function'){
+      gtag('event','print_payback_pdf',{
+        event_category:'calculator',
+        event_label:'premium_payback_print',
+        value:1
+      });
+    }
+  }
+
+  ids.forEach(id => document.getElementById(id).addEventListener('input',()=>calc(false)));
+  calc(false);
+</script>
+</body>
+</html>
