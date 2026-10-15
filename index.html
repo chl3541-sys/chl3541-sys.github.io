@@ -25,6 +25,24 @@
   <meta property="og:description" content="무인매장 인수 전 예상 순이익, 손익분기점과 투자금 회수기간을 무료로 계산해 보세요.">
   <meta property="og:url" content="https://chl3541-sys.github.io/">
 
+
+  <meta property="og:locale" content="ko_KR">
+  <meta name="theme-color" content="#155eef">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "무인매장 수익 계산기",
+    "url": "https://chl3541-sys.github.io/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "inLanguage": "ko-KR",
+    "description": "무인매장 창업과 인수 전 월매출, 원가율, 월세, 권리금 등을 입력해 예상 월 영업이익, 손익분기점, 투자금 회수기간을 계산하는 무료 도구입니다.",
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"KRW"}
+  }
+  </script>
+
   <style>
     body{
       font-family:system-ui,-apple-system,sans-serif;
@@ -212,8 +230,8 @@
     </div>
 
     <p>
-      <button onclick="calc()">수익 계산하기</button>
-      <button style="background:#64748b" onclick="window.print()">
+      <button id="calculateBtn" type="button" onclick="calc(true)">수익 계산하기</button>
+      <button id="printBtn" type="button" style="background:#64748b" onclick="trackPrint(); window.print()">
         인쇄 / PDF 저장
       </button>
     </p>
@@ -224,7 +242,7 @@
 
     <h2>계산 결과</h2>
 
-    <div class="results">
+    <div class="results" aria-live="polite">
 
       <div class="stat">
         예상 월 영업이익
@@ -329,6 +347,54 @@
 
   </div>
 
+
+  <div class="card content">
+
+    <h2>무인매장 수익 계산 예시</h2>
+
+    <p>
+      예를 들어 월매출 1,000만원, 상품 매입원가율 55%,
+      월세·관리비 155만원, 전기·수도·통신비 70만원,
+      결제 수수료율 2%, 기타 월 운영비 50만원이라고 가정해 보겠습니다.
+      이 조건을 입력하면 예상 월 영업이익과 손익분기 매출을 한 번에 비교할 수 있습니다.
+    </p>
+
+    <p>
+      같은 매출이라도 원가율이나 임대료가 높아지면 실제 남는 금액은 크게 줄어듭니다.
+      따라서 매출만 확인하지 말고 원가율과 고정비를 함께 입력해 비교하는 것이 중요합니다.
+    </p>
+
+    <h3>매출 감소 상황도 함께 확인하세요</h3>
+
+    <p>
+      기존 매장을 인수할 때는 현재 매출뿐 아니라 매출이 줄어든 상황도 확인하는 것이 좋습니다.
+      이 계산기는 입력한 월매출이 20% 감소했을 때의 예상 영업이익도 함께 표시합니다.
+    </p>
+
+  </div>
+
+  <div class="card content">
+
+    <h2>무인매장 인수 전 확인할 자료</h2>
+
+    <p>
+      기존 매장을 인수한다면 판매자가 제시한 월매출이나 순이익만 사용하기보다
+      실제 자료와 대조한 값을 계산기에 입력하는 것이 좋습니다.
+    </p>
+
+    <p>
+      POS 또는 키오스크 매출 기록, 카드 매출 정산 내역, 통장 입금 내역,
+      상품 매입 내역, 임대차계약서의 월세와 관리비, 전기·수도·통신비,
+      재고 현황과 설비 상태 등을 확인해 보세요.
+    </p>
+
+    <p>
+      권리금과 시설비가 있다면 총 초기투입액과 예상 영업이익을 함께 비교하고,
+      매출이 감소하는 경우에도 투자금 회수가 가능한지 별도로 검토하는 것이 좋습니다.
+    </p>
+
+  </div>
+
   <div class="card content">
 
     <h2>자주 묻는 질문</h2>
@@ -354,6 +420,20 @@
       무인 아이스크림 매장뿐 아니라 무인 편의점과 무인 간식매장 등
       매출과 원가 및 고정비 구조를 가진 매장의 간단한 수익성 분석에
       활용할 수 있습니다.
+    </p>
+
+    <h3>무인매장 손익분기점은 왜 확인해야 하나요?</h3>
+
+    <p>
+      손익분기 매출은 입력한 비용 구조에서 영업이익이 0원이 되는 매출 수준입니다.
+      예상 매출과 손익분기 매출의 차이를 확인하면 매출 감소에 대한 여유를 비교할 수 있습니다.
+    </p>
+
+    <h3>계산 결과가 실제 순수익과 같나요?</h3>
+
+    <p>
+      아닙니다. 계산 결과는 입력값을 이용한 단순 영업수익 시뮬레이션입니다.
+      세금, 대출이자, 감가상각, 점주 노동비, 재고 손실 등은 별도로 확인해야 합니다.
     </p>
 
   </div>
@@ -403,7 +483,7 @@ const val=id=>
 const fmt=n=>
   Math.round(n).toLocaleString('ko-KR')+'원';
 
-function calc(){
+function calc(trackUsage=false){
 
   const s=val('sales');
 
@@ -449,6 +529,14 @@ function calc(){
   document.getElementById('downside').textContent=
     fmt(s*.8*rate-fix);
 
+  if(trackUsage && typeof window.gtag === 'function'){
+    gtag('event','calculate_profit',{
+      event_category:'calculator',
+      event_label:'profit_calculation',
+      value:1
+    });
+  }
+
   document.getElementById('detail').textContent=
     '공헌이익률 '+
     (rate*100).toFixed(1)+
@@ -458,6 +546,16 @@ function calc(){
     fmt(s*val('cost')/100)+
     ' · 월 결제수수료 '+
     fmt(s*val('fee')/100);
+}
+
+function trackPrint(){
+  if(typeof window.gtag === 'function'){
+    gtag('event','print_pdf',{
+      event_category:'calculator',
+      event_label:'print_or_pdf',
+      value:1
+    });
+  }
 }
 
 ids.forEach(
