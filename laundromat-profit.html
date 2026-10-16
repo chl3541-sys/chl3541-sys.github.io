@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>셀프빨래방 수익 계산기 | 월 순이익·손익분기·투자금 회수기간</title>
+<meta name="description" content="셀프빨래방의 세탁·건조 이용건수와 이용가격, 월세, 공과금, 유지보수비를 입력해 월 예상매출, 순이익, 손익분기 이용건수와 투자금 회수기간을 계산합니다.">
+<link rel="canonical" href="https://chl3541-sys.github.io/laundromat-profit.html">
+<meta name="theme-color" content="#0f766e">
+<meta property="og:locale" content="ko_KR"><meta property="og:type" content="website">
+<meta property="og:title" content="셀프빨래방 수익 계산기"><meta property="og:url" content="https://chl3541-sys.github.io/laundromat-profit.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-65RF2M8Q6J"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-65RF2M8Q6J');</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"셀프빨래방 수익 계산기","url":"https://chl3541-sys.github.io/laundromat-profit.html","applicationCategory":"FinanceApplication","operatingSystem":"Any"}</script>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f7fb;color:#17233b;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;line-height:1.55}.wrap{max-width:980px;margin:auto;padding:26px 18px 60px}a{color:#0f766e;text-decoration:none}.back{display:inline-block;margin-bottom:18px;font-weight:700}.hero,.card{background:#fff;border:1px solid #dce5ef;border-radius:24px;padding:30px;margin-bottom:22px}h1{font-size:34px;line-height:1.25;margin:0 0 12px}h2{font-size:26px;margin:0 0 22px}h3{font-size:20px;margin-top:26px}.muted{color:#63738a}.grid,.results{display:grid;grid-template-columns:1fr 1fr;gap:18px}label{display:block;font-weight:800;margin-bottom:7px}input{width:100%;padding:15px 16px;border:1px solid #c9d5e4;border-radius:14px;font-size:18px}button{border:0;border-radius:14px;background:#0f766e;color:#fff;font-size:17px;font-weight:800;padding:15px 20px;cursor:pointer;margin-top:22px}.result{background:#f7f9fc;border:1px solid #dce5ef;border-radius:16px;padding:20px}.result span{display:block;color:#65758c;margin-bottom:6px}.result strong{font-size:25px}.good{color:#07835f}.warn{color:#b45309}.note{background:#f8fafc;border-radius:14px;padding:16px;margin-top:18px;color:#526178}.links a{display:inline-block;margin:6px 12px 6px 0;font-weight:700}@media(max-width:700px){.grid,.results{grid-template-columns:1fr}.hero,.card{padding:22px}h1{font-size:29px}}
+</style></head><body><main class="wrap">
+<a class="back" href="/">← 무인매장 수익 계산기로 돌아가기</a>
+<section class="hero"><h1>셀프빨래방 수익 계산기</h1><p>세탁기와 건조기의 하루 이용건수와 평균 이용가격을 기준으로 월 예상매출과 순이익을 계산합니다. 손익분기 이용건수와 초기 투자금 회수기간도 확인할 수 있습니다.</p><p class="muted">기본값은 계산 예시입니다. 실제 매장 자료에 맞게 수정하세요.</p></section>
+<section class="card"><h2>매장 운영 조건 입력</h2><div class="grid">
+<div><label>세탁기 대수 (대)</label><input id="wm" type="number" min="0" value="4"></div><div><label>건조기 대수 (대)</label><input id="dm" type="number" min="0" value="4"></div>
+<div><label>세탁 1회 평균가격 (원)</label><input id="wp" type="number" min="0" value="6000"></div><div><label>건조 1회 평균가격 (원)</label><input id="dp" type="number" min="0" value="6000"></div>
+<div><label>세탁기 1대당 하루 평균 이용건수 (회)</label><input id="wu" type="number" min="0" step=".1" value="3"></div><div><label>건조기 1대당 하루 평균 이용건수 (회)</label><input id="du" type="number" min="0" step=".1" value="3"></div>
+<div><label>월세·관리비 (원)</label><input id="rent" type="number" min="0" value="1500000"></div><div><label>전기·가스·수도 (원)</label><input id="util" type="number" min="0" value="1200000"></div>
+<div><label>세제·소모품 (원)</label><input id="sup" type="number" min="0" value="250000"></div><div><label>청소·관리비 (원)</label><input id="clean" type="number" min="0" value="300000"></div>
+<div><label>수리·유지보수 적립 (원)</label><input id="maint" type="number" min="0" value="300000"></div><div><label>결제 수수료율 (%)</label><input id="fee" type="number" min="0" max="100" step=".1" value="2"></div>
+<div><label>기타 월 운영비 (원)</label><input id="other" type="number" min="0" value="150000"></div><div><label>초기 투자금 보증금 제외 (원)</label><input id="inv" type="number" min="0" value="150000000"></div>
+<div><label>월 영업일수 (일)</label><input id="days" type="number" min="1" max="31" value="30"></div></div>
+<button type="button" onclick="calc(true)">수익 계산하기</button></section>
+<section class="card" aria-live="polite"><h2>계산 결과</h2><div class="results">
+<div class="result"><span>예상 월매출</span><strong id="sales">-</strong></div><div class="result"><span>예상 월 순이익</span><strong class="good" id="profit">-</strong></div>
+<div class="result"><span>예상 순이익률</span><strong id="margin">-</strong></div><div class="result"><span>손익분기 월매출</span><strong id="bes">-</strong></div>
+<div class="result"><span>손익분기 하루 총 이용건수</span><strong id="beu">-</strong></div><div class="result"><span>투자금 회수기간</span><strong id="payback">-</strong></div>
+<div class="result"><span>이용건수 20% 감소 시 순이익</span><strong class="warn" id="down">-</strong></div><div class="result"><span>현재 하루 총 이용건수</span><strong id="uses">-</strong></div></div>
+<div class="note">공과금 일부는 실제 이용량에 따라 변합니다. 이 결과는 사업성 검토용 추정치이며 세금, 금융비용, 감가상각과 예상 밖 수리비는 별도로 검토해야 합니다.</div></section>
+<section class="card"><h2>셀프빨래방 수익 검토 시 확인할 항목</h2><p>장비 대수와 회전율, 세탁과 건조 이용 비중, 전기·가스·수도 비용, 장비 연식과 수리내역을 함께 확인하는 것이 중요합니다.</p>
+<h3>투자금 회수기간은 어떻게 계산하나요?</h3><p>입력한 초기 투자금을 예상 월 순이익으로 나눈 단순 회수기간입니다. 순이익이 0원 이하이면 회수기간을 산출하지 않습니다.</p>
+<div class="links"><a href="/">무인매장 수익 계산기</a><a href="/premium-payback.html">권리금 회수기간 계산기</a><a href="/break-even.html">손익분기점 계산기</a><a href="/icecream-profit.html">무인 아이스크림 수익 계산기</a><a href="/unmanned-cafe-profit.html">무인카페 수익 계산기</a></div></section>
+</main><script>
+const ids=['wm','dm','wp','dp','wu','du','rent','util','sup','clean','maint','fee','other','inv','days'],n=id=>Math.max(0,Number(document.getElementById(id).value)||0),won=x=>Math.round(x).toLocaleString('ko-KR')+'원';
+function model(m=1){let daily=n('wm')*n('wu')*m+n('dm')*n('du')*m,days=Math.max(1,n('days')),sales=(n('wm')*n('wu')*m*n('wp')+n('dm')*n('du')*m*n('dp'))*days,fixed=n('rent')+n('util')+n('sup')+n('clean')+n('maint')+n('other'),rate=n('fee')/100;return{daily,days,sales,fixed,rate,profit:sales*(1-rate)-fixed}}
+function calc(track=false){let r=model(),avg=r.daily?r.sales/r.days/r.daily:0,bes=1-r.rate>0?r.fixed/(1-r.rate):Infinity,beu=avg?bes/r.days/avg:Infinity,pay=r.profit>0?n('inv')/r.profit:Infinity,d=model(.8);sales.textContent=won(r.sales);profit.textContent=won(r.profit);margin.textContent=r.sales?(r.profit/r.sales*100).toFixed(1)+'%':'-';document.getElementById('bes').textContent=isFinite(bes)?won(bes):'-';document.getElementById('beu').textContent=isFinite(beu)?beu.toFixed(1)+'회/일':'-';payback.textContent=isFinite(pay)?pay.toFixed(1)+'개월':'회수 불가';down.textContent=won(d.profit);uses.textContent=r.daily.toFixed(1)+'회/일';if(track&&typeof gtag==='function')gtag('event','calculate_laundromat_profit',{event_category:'calculator',event_label:'laundromat_profit',value:1})}
+ids.forEach(id=>document.getElementById(id).addEventListener('input',()=>calc(false)));calc(false);
+</script></body></html>
